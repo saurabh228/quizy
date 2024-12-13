@@ -3,15 +3,15 @@
 {% block title %}Quiz - Quiz App{% endblock %}
 
 {% block content %}
-<div class="mt-4">
+<div class="container mt-4">
     <div id="alert-container"></div>
-    <div id="progress-container" class="mb-3">
+    <div id="progress-container" class="mb-3 text-center">
         <h5>Question <span id="completed-questions"></span> of <span id="total-questions"></span></h5>
     </div>
     <div id="quiz-container"></div>
-    <div class="mt-3">
-        <button onclick="finishQuiz()" class="btn btn-danger">Finish Quiz</button>
-        <button onclick="resumeLater()" class="btn btn-secondary">Resume Later</button>
+    <div class="mt-3 d-flex flex-column flex-md-row justify-content-between">
+        <button onclick="finishQuiz()" class="btn btn-danger mb-2 mb-md-0 btn-block btn-md-auto">Finish Quiz</button>
+        <button onclick="resumeLater()" class="btn btn-secondary btn-block btn-md-auto">Resume Later</button>
     </div>
 </div>
 {% endblock %}
