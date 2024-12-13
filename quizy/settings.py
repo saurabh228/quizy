@@ -1,5 +1,4 @@
 from pathlib import Path
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,7 +8,7 @@ SECRET_KEY = 'django-insecure-6c+*t5sksee=*z56&rfvmr003s+@hn!83s6=6=99+crl#6js!0
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', 'localhost']
+ALLOWED_HOSTS = ['localhost']
 
 LOGIN_URL = 'login'
 
