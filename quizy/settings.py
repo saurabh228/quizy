@@ -57,7 +57,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'quizy.wsgi.app'
+WSGI_APPLICATION = 'quizy.wsgi.application'
 
 
 # Database
