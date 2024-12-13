@@ -11,7 +11,7 @@
             <p><strong>Correct Answers:</strong> {{ correct_answers }}</p>
             <p><strong>Incorrect Answers:</strong> {{ incorrect_answers }}</p>
             <p><strong>Partially Correct Answers:</strong> {{ partially_correct_answers }}</p>
-            <p><strong>Total Score:</strong> {{ total_score }} / {{ total_questions }}</p>
+            <p><strong>Total Score:</strong> {{ total_score|floatformat:2 }} / {{ total_questions }}</p>
         </div>
     </div>
 
