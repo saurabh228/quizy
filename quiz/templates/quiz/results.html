@@ -1,0 +1,55 @@
+{% extends 'quiz/base.html' %}
+
+{% block title %}Quiz Results - Quiz App{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+    <h1>Quiz Results</h1>
+    <div class="card mb-4">
+        <div class="card-body">
+            <p><strong>Total Questions:</strong> {{ total_questions }}</p>
+            <p><strong>Correct Answers:</strong> {{ correct_answers }}</p>
+            <p><strong>Incorrect Answers:</strong> {{ incorrect_answers }}</p>
+            <p><strong>Partially Correct Answers:</strong> {{ partially_correct_answers }}</p>
+            <p><strong>Total Score:</strong> {{ total_score }} / {{ total_questions }}</p>
+        </div>
+    </div>
+
+    <h3>Question Details</h3>
+    {% for question in questions_data %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Question {{ forloop.counter }}:</h5>
+                <p>{{ question.question_text }}</p>
+                <ul class="list-group">
+                    {% for option in question.options %}
+                        <li class="list-group-item
+                            {% if option in question.correct_options %}list-group-item-success{% endif %}
+                            {% if option in question.selected_options and option not in question.correct_options %}list-group-item-danger{% endif %}
+                        ">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled
+                                    {% if option in question.selected_options %}checked{% endif %}>
+                                <label class="form-check-label">
+                                    {{ option }}
+                                </label>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <p class="mt-2">
+                    {% if question.score == 1.0 %}
+                        <span class="text-success">Correct</span>
+                    {% elif question.score > 0 %}
+                        <span class="text-warning">Partially Correct</span>
+                    {% else %}
+                        <span class="text-danger">Incorrect</span>
+                    {% endif %}
+                    - Score: {{ question.score|floatformat:2 }}
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+    <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+</div>
+{% endblock %}

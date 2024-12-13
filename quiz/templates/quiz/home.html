@@ -1,0 +1,84 @@
+{% extends 'quiz/base.html' %}
+
+{% block title %}Home - Quiz App{% endblock %}
+
+{% block content %}
+<div class="text-center my-5">
+    <h1>Welcome to the Quiz App</h1>
+    <p class="lead">Test your knowledge with our interactive quizzes.</p>
+</div>
+
+{% if user.is_authenticated %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3>Start a New Quiz</h3>
+            <form id="start-quiz-form" class="form-inline justify-content-center">
+                <label for="total_questions" class="mr-2">Number of Questions:</label>
+                <select name="total_questions" id="total_questions" class="form-control mr-2">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+                <button type="button" onclick="startQuiz()" class="btn btn-success">Start Quiz</button>
+            </form>
+        </div>
+    </div>
+
+    <h3>Your Quiz Sessions</h3>
+    {% if sessions %}
+        <div class="list-group">
+            {% for session in sessions %}
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>Session - </strong>
+                        <medium class="text-muted">{{ session.created_at|date:"M d, Y - H:i" }}</medium>
+                    </div>
+                    <div>
+                        {% if session.is_completed %}
+                            <button class="btn btn-primary btn-sm" onclick="viewResults('{{ session.id }}')">View Results</button>
+                        {% else %}
+                            <button class="btn btn-warning btn-sm" onclick="resumeQuiz('{{ session.id }}')">Resume</button>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You have no quiz sessions yet.</p>
+    {% endif %}
+{% else %}
+    <div class="text-center">
+        <p>Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register</a> to start the quiz.</p>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function startQuiz() {
+        const totalQuestions = document.getElementById('total_questions').value;
+        fetch(`/start_quiz/${totalQuestions}/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.session_id) {
+                    window.location.href = `/quiz/${data.session_id}/`;
+                } else {
+                    alert('Error starting quiz.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while starting the quiz. Please try again.');
+            });
+    }
+
+    function viewResults(sessionId) {
+        window.location.href = `/get_results/${sessionId}/`;
+    }
+
+    function resumeQuiz(sessionId) {
+        window.location.href = `/quiz/${sessionId}/`;
+    }
+</script>
+{% endblock %}
