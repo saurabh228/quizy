@@ -76,8 +76,6 @@ def get_question(request, session_id):
 
         if not remaining_questions.exists():
             # No more questions currently in the database;
-            session.is_completed = True
-            session.save()
             return JsonResponse({'error': 'No more questions at the moment. Please Resume quiz later'}, status=200)
 
         # Randomly select the next question
