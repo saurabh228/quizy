@@ -2,6 +2,9 @@
 
 Welcome to Quizy! This is a Django-based web application that allows users to take quizzes, view their results, and track their progress. The application supports multiple-choice questions and provides a user-friendly interface for both taking quizzes and viewing results.
 
+The application can be accessed at https://quizy-oe3t.onrender.com/
+
+
 ## Features
 
 - User authentication (login, registration, logout)
